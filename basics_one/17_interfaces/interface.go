@@ -13,8 +13,8 @@ type payment struct{
 }
 
 func (p payment) makePayment(amount float32) {
-	// paymentGateway := razorpay{}/...
-	// paymentGateway.payment(amount)
+	paymentGateway := razorpay{}
+	paymentGateway.payment(amount)
 
 	// paymentGateway := paytm{}
 	// paymentGateway.payment(amount)
@@ -46,6 +46,9 @@ func (r razorpay) refund(amount float32, account string) {
 
 
 func main() {
+
+	newPayment := payment{}
+	newPayment.makePayment(1000)
 
 	paytmtGateway := razorpay{}
 	// paytmtGateway := paytm{}
