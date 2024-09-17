@@ -131,4 +131,13 @@ func main() {
 	fmt.Println("File Deleted!")
 	*/
 
+	/*..rename files..
+	err := os.Rename("example_copy.txt", "example_renamed.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("File Renamed!")
+	*/
+
 }
