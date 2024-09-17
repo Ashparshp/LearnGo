@@ -1,3 +1,3 @@
 # Progress
 
-- Completed 25 lectures
+- Completed 26 lectures
