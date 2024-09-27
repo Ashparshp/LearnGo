@@ -30,3 +30,4 @@ go.sum
 vendor/
 
 storage
+/config
