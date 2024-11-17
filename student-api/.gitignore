@@ -32,3 +32,6 @@ go.work
 
 # .DS_Store file
 .DS_Store
+
+# Storage
+storage/
