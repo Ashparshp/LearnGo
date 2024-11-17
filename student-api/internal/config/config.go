@@ -2,7 +2,9 @@ package config
 
 import (
 	"flag"
+	"log"
 	"os"
+
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
@@ -11,9 +13,9 @@ type HTTPServer struct {
 }
 
 type Config struct {
-	Env string `yaml:"env" env:"ENV" emv-required:"true"`
-	StoragePath  string `yaml:"storage_path" env-required:"true"`
-	HTTPServer HTTPServer `yaml:"http_server"`
+	Env         string     `yaml:"env" env:"ENV" env-required:"true"`
+	StoragePath string     `yaml:"storage_path" env-required:"true"`
+	HTTPServer  HTTPServer `yaml:"http_server"`
 }
 
 func MustLoad() *Config {
@@ -21,25 +23,22 @@ func MustLoad() *Config {
 
 	configPath = os.Getenv("CONFIG_PATH")
 	if configPath == "" {
-		flags := flag.String("config", "", "path to config file")
+		flagConfig := flag.String("config", "", "path to the configuration file")
 		flag.Parse()
-		configPath = *flags
-
+		configPath = *flagConfig
 
 		if configPath == "" {
-			panic("config path is required")
+			log.Fatal("configuration path is required (set CONFIG_PATH or use --config flag)")
 		}
 	}
 
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		panic("config file does not exist")
+		log.Fatalf("configuration file does not exist: %s", configPath)
 	}
 
 	var cfg Config
-	err := cleanenv.ReadConfig(configPath, &cfg)
-
-	if err != nil {
-		panic(err)
+	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
+		log.Fatalf("failed to load configuration: %v", err)
 	}
 
 	return &cfg
